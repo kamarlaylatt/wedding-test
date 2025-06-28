@@ -10,31 +10,59 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fdfaf6; /* Creamy off-white background */
+    /* Adding a subtle texture - replace with your actual image path if you have one */
+    /* background-image: url('path/to/subtle-linen-texture.png'); */
+    /* As a fallback, using a very light noise pattern with CSS */
+    background-image: linear-gradient(45deg, rgba(0,0,0,0.01) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.01) 75%, rgba(0,0,0,0.01)),
+                      linear-gradient(45deg, rgba(0,0,0,0.01) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.01) 75%, rgba(0,0,0,0.01));
+    background-size: 4px 4px; /* Size of the pattern */
+    background-position: 0 0, 2px 2px; /* Offset for the two layers */
+
     color: #5c5c5c; /* Soft dark gray for text */
     line-height: 1.6;
     overflow-x: hidden; /* Prevent horizontal scroll */
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
-/* Simple fade-in animation for sections */
-.container {
-    animation: fadeInSection 0.8s ease-in-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-@keyframes fadeInSection {
+/* Animations */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Delay for staggered animation if desired - can be applied via JS if more complex */
-#our-story { animation-delay: 0.2s; }
-#photos { animation-delay: 0.4s; }
-#wedding-details { animation-delay: 0.6s; }
-#rsvp { animation-delay: 0.8s; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container {
+    animation: fadeInSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0; /* Start hidden */
+}
+
+/* Staggered delays for sections */
+#our-story { animation-delay: 0.3s; }
+#photos { animation-delay: 0.5s; } /* A bit more delay for image-heavy section */
+#wedding-details { animation-delay: 0.7s; }
+#rsvp { animation-delay: 0.9s; }
+
+/* Hero text animations */
+.hero .couple-names,
+.hero p:nth-of-type(1), /* "Are getting married!" */
+.hero .date {
+    opacity: 0; /* Start hidden */
+    animation: fadeInSlideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero .couple-names { animation-delay: 0.5s; }
+.hero p:nth-of-type(1) { animation-delay: 0.8s; } /* "Are getting married!" */
+.hero .date { animation-delay: 1.1s; }
 
 
 .container {
@@ -63,8 +91,25 @@ h2 {
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 1em;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #e0dcd7; /* Subtle separator */
+    padding-bottom: 0.7em; /* Increased padding for separator */
+    position: relative; /* For pseudo-element separator */
+    /* border-bottom: 1px solid #e0dcd7; */ /* Removing old border */
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; /* Width of the separator line */
+    height: 2px; /* Thickness of the line */
+    background: linear-gradient(to right, transparent, #8b5a2b, transparent); /* Gradient line */
+    /* Or use an SVG for a flourish:
+    content: url('path/to/your/flourish.svg');
+    width: 50px;
+    height: 20px; // Adjust as needed
+    */
 }
 
 h3 {
@@ -106,10 +151,23 @@ header::before {
 }
 
 header nav {
-    position: relative; /* To stay above overlay */
-    z-index: 10;
-    margin-bottom: 2em;
+    position: sticky; /* Makes the nav sticky */
+    top: 0;           /* Sticks to the top of the viewport */
+    z-index: 1000;    /* Ensures it's above other content */
+    background-color: rgba(92, 92, 92, 0.85); /* Semi-transparent dark background when sticky */
+    padding: 0.5em 0; /* Add some padding when sticky */
+    margin-bottom: 0; /* Remove bottom margin as padding will handle spacing */
+    backdrop-filter: blur(5px); /* Optional: adds a blur effect to background */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease, padding 0.3s ease;
 }
+
+/* Style for the main header area, to ensure nav is part of it initially */
+header {
+    /* ... existing styles ... */
+    /* Ensure there's enough space if nav is part of this block and becomes sticky */
+}
+
 
 header nav ul {
     list-style: none;
@@ -127,17 +185,38 @@ header nav ul li a {
     font-weight: bold;
     padding: 0.5em 1em;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    position: relative; /* For pseudo-element underline */
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px; /* Position the underline slightly below the text */
+    left: 50%;
+    background-color: #fff; /* Or a contrasting color if nav bg changes significantly */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+header nav ul li a:hover::after,
+header nav ul li a:focus::after {
+    width: 100%;
+    left: 0;
 }
 
 header nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    /* background-color: rgba(255, 255, 255, 0.2); */ /* Optional: keep or remove if underline is enough */
+    color: #f0f0f0; /* Slightly brighter on hover */
     text-decoration: none;
+    transform: translateY(-2px); /* Subtle lift effect */
 }
 
 .hero {
     position: relative; /* To stay above overlay */
-    z-index: 10;
+    z-index: 10; /* Ensure hero content is below sticky nav if nav is part of header block */
+    padding-top: 2em; /* Add padding to hero if nav was originally above it and is now sticky */
 }
 
 .hero h1 {
@@ -187,16 +266,19 @@ header nav ul li a:hover {
     overflow: hidden; /* For actual images */
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
+    background-color: #e0dcd7; /* Fallback for if image doesn't load */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures images cover the area, cropping if necessary */
+    display: block;
 }
 
 .gallery-item:hover {
     transform: scale(1.05); /* Slight zoom on hover */
     box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
-}
-
-.gallery-item p { /* Placeholder text style */
-    color: #888;
-    font-style: italic;
 }
 
 /* Wedding Details Section */
@@ -268,11 +350,15 @@ header nav ul li a:hover {
     cursor: pointer;
     font-size: 1.1em;
     font-family: 'Playfair Display', serif;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-#rsvp-form button[type="submit"]:hover {
+#rsvp-form button[type="submit"]:hover,
+#rsvp-form button[type="submit"]:focus {
     background-color: #a07c54; /* Lighter shade on hover */
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 #rsvp-confirmation {
