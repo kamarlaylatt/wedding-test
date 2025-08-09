@@ -6,20 +6,12 @@
 }
 
 body {
-    font-family: 'Georgia', serif; /* Elegant serif font */
+    font-family: 'Lato', sans-serif; /* Modern, readable sans-serif */
     margin: 0;
     padding: 0;
-    background-color: #fdfaf6; /* Creamy off-white background */
-    /* Adding a subtle texture - replace with your actual image path if you have one */
-    /* background-image: url('path/to/subtle-linen-texture.png'); */
-    /* As a fallback, using a very light noise pattern with CSS */
-    background-image: linear-gradient(45deg, rgba(0,0,0,0.01) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.01) 75%, rgba(0,0,0,0.01)),
-                      linear-gradient(45deg, rgba(0,0,0,0.01) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.01) 75%, rgba(0,0,0,0.01));
-    background-size: 4px 4px; /* Size of the pattern */
-    background-position: 0 0, 2px 2px; /* Offset for the two layers */
-
-    color: #5c5c5c; /* Soft dark gray for text */
-    line-height: 1.6;
+    background-color: #fcfcfc; /* A brighter, cleaner background */
+    color: #333333; /* Darker text for better contrast */
+    line-height: 1.7; /* Increased for better readability */
     overflow-x: hidden; /* Prevent horizontal scroll */
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
@@ -68,17 +60,18 @@ body {
 .container {
     width: 90%;
     max-width: 1100px;
-    margin: 2em auto;
-    padding: 20px;
+    margin: 3em auto; /* Increased vertical spacing */
+    padding: 40px; /* Increased padding */
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 12px; /* Softer edges */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Deeper shadow */
 }
 
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif; /* A sophisticated serif for headings */
-    color: #8b5a2b; /* Muted gold/brown for headings */
+    font-family: 'Playfair Display', serif;
+    color: #7f5539; /* A richer, more elegant brown */
     margin-bottom: 0.5em;
+    font-weight: 700;
 }
 
 h1 {
@@ -104,7 +97,7 @@ h2::after {
     transform: translateX(-50%);
     width: 100px; /* Width of the separator line */
     height: 2px; /* Thickness of the line */
-    background: linear-gradient(to right, transparent, #8b5a2b, transparent); /* Gradient line */
+    background: linear-gradient(to right, transparent, #7f5539, transparent); /* Gradient line */
     /* Or use an SVG for a flourish:
     content: url('path/to/your/flourish.svg');
     width: 50px;
@@ -114,7 +107,7 @@ h2::after {
 
 h3 {
     font-size: 1.8em;
-    color: #a07c54; /* Lighter gold/brown */
+    color: #8f6f50; /* A slightly lighter, harmonious brown */
 }
 
 p {
@@ -123,8 +116,9 @@ p {
 }
 
 a {
-    color: #b28d67; /* Soft gold for links */
+    color: #9b6a49; /* A stronger link color */
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
@@ -135,7 +129,7 @@ a:hover {
 header {
     background: url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
     color: #fff;
-    padding: 2em 0 4em;
+    padding: 4em 0 6em; /* More vertical padding */
     text-align: center;
     position: relative;
 }
@@ -252,7 +246,7 @@ header nav ul li a:hover {
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 15px;
+    gap: 20px; /* Increased gap */
     margin-top: 1em;
 }
 
@@ -285,7 +279,7 @@ header nav ul li a:hover {
 .details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 30px; /* Increased gap */
     margin-top: 1em;
 }
 
@@ -326,39 +320,98 @@ header nav ul li a:hover {
 #rsvp-form input[type="email"],
 #rsvp-form input[type="number"],
 #rsvp-form textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#rsvp-form input[type="text"]:focus,
+#rsvp-form input[type="email"]:focus,
+#rsvp-form input[type="number"]:focus,
+#rsvp-form textarea:focus {
+    border-color: #9b6a49;
+    box-shadow: 0 0 8px rgba(155, 106, 73, 0.2);
+    outline: none;
+}
+
+#rsvp-form .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 #rsvp-form input[type="radio"] {
-    margin-right: 5px;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
 }
-#rsvp-form input[type="radio"] + label { /* Style labels next to radio buttons */
+
+#rsvp-form input[type="radio"] + label {
     font-weight: normal;
-    margin-right: 15px;
+    position: relative;
+    padding-left: 30px; /* Space for custom radio */
+    cursor: pointer;
+    display: inline-block;
+    line-height: 20px; /* Align with custom radio */
+}
+
+#rsvp-form input[type="radio"] + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+#rsvp-form input[type="radio"] + label::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #7f5539;
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#rsvp-form input[type="radio"]:checked + label::before {
+    border-color: #7f5539;
+}
+
+#rsvp-form input[type="radio"]:checked + label::after {
+    transform: scale(1);
 }
 
 #rsvp-form button[type="submit"] {
-    background-color: #8b5a2b; /* Muted gold/brown */
+    background-color: #7f5539; /* Consistent with new heading color */
     color: white;
-    padding: 12px 20px;
+    padding: 15px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-family: 'Playfair Display', serif;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    letter-spacing: 1px;
 }
 
 #rsvp-form button[type="submit"]:hover,
 #rsvp-form button[type="submit"]:focus {
-    background-color: #a07c54; /* Lighter shade on hover */
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #9b6a49; /* Lighter, harmonious shade on hover */
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 #rsvp-confirmation {
@@ -370,11 +423,12 @@ header nav ul li a:hover {
 /* Footer */
 footer {
     text-align: center;
-    padding: 2em 0;
-    background-color: #e0dcd7; /* Light beige for footer */
-    color: #5c5c5c;
-    margin-top: 3em;
+    padding: 3em 0;
+    background-color: #f5f5f5; /* A light, neutral grey */
+    color: #666;
+    margin-top: 4em;
     font-size: 0.9em;
+    border-top: 1px solid #eee;
 }
 
 footer p {
@@ -426,34 +480,6 @@ footer p {
     }
 }
 
-/* Custom Cursor Styles */
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #8b5a2b; /* Muted gold/brown */
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none; /* Allows clicking through the dot */
-    z-index: 9999;
-    transition: width 0.2s, height 0.2s; /* Smooth transition for size changes */
-}
-
-.cursor-outline {
-    width: 30px;
-    height: 30px;
-    border: 2px solid #8b5a2b; /* Muted gold/brown */
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none; /* Allows clicking through the outline */
-    z-index: 9998;
-    transition: width 0.3s ease-out, height 0.3s ease-out, border-color 0.3s ease-out, border-width 0.3s ease-out;
-}
 
 
 /* Couple Names Style */
