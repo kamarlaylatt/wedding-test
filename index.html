@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
     <header>
         <nav>
             <ul>
@@ -102,10 +99,12 @@
                 </div>
                 <div>
                     <label>Will you be attending?</label>
-                    <input type="radio" id="attending-yes" name="attending" value="yes" required>
-                    <label for="attending-yes">Joyfully Accept</label>
-                    <input type="radio" id="attending-no" name="attending" value="no" required>
-                    <label for="attending-no">Regretfully Decline</label>
+                    <div class="radio-group">
+                        <input type="radio" id="attending-yes" name="attending" value="yes" required>
+                        <label for="attending-yes">Joyfully Accept</label>
+                        <input type="radio" id="attending-no" name="attending" value="no" required>
+                        <label for="attending-no">Regretfully Decline</label>
+                    </div>
                 </div>
                 <div>
                     <label for="guests">Number of Guests (including yourself):</label>
@@ -142,42 +141,6 @@
             });
         }
 
-        // Custom Cursor Script
-        const cursorDot = document.querySelector("[data-cursor-dot]");
-        const cursorOutline = document.querySelector("[data-cursor-outline]");
-
-        window.addEventListener("mousemove", function (e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // cursorOutline.style.left = `${posX}px`;
-            // cursorOutline.style.top = `${posY}px`;
-
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards"});
-
-        });
-
-        // Add hover effect for links and buttons
-        document.querySelectorAll('a, button, input[type="radio"] + label, .gallery-item').forEach(el => {
-            el.addEventListener('mouseover', () => {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.borderWidth = '2px';
-                cursorOutline.style.borderColor = 'rgba(139, 90, 43, 0.5)'; // #8b5a2b with alpha
-            });
-            el.addEventListener('mouseout', () => {
-                cursorOutline.style.width = '30px';
-                cursorOutline.style.height = '30px';
-                cursorOutline.style.borderWidth = '2px';
-                cursorOutline.style.borderColor = '#8b5a2b'; // Back to original
-            });
-        });
 
     </script>
 </body>
